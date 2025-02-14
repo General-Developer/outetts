@@ -1,6 +1,6 @@
 name: 'outetts_flutter'
 description: "LLaMA Is Library for Inference of Meta's LLaMA model (and others)"
-version: '0.0.1'
+version: '0.0.0'
 funding:
   - 'https://github.com/sponsors/azkadev'
   - 'https://github.com/sponsors/generalfoss'
