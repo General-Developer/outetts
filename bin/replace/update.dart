@@ -53,7 +53,7 @@ Future<void> pubspecUpdate({
     Map yaml_code_clone = yaml_code.clone();
 
     yaml_code_clone.addAll({
-      "description": "LLaMA Is Library for Inference of Meta's LLaMA model (and others)",
+      "description": "Wip OuteTTS Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota",
       "version": version_package,
       "repository": "https://github.com/General-Developer/outetts",
       "homepage": "https://www.youtube.com/@general_dev",

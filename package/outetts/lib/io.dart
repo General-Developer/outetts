@@ -51,8 +51,8 @@ class Outetts extends OutettsBase {
   Outetts({
     String? sharedLibraryPath,
   }) : super(
-          sharedLibraryPath: sharedLibraryPath ??
-              OutettsBase.getLibraryWhisperPathDefault(),
+          sharedLibraryPath:
+              sharedLibraryPath ?? OutettsBase.getLibraryWhisperPathDefault(),
         );
 
   ///
@@ -134,8 +134,8 @@ class Outetts extends OutettsBase {
     );
     final nativeModelPath = modelParams.path.toNativeUtf8().cast<Char>();
 
-    final modelContext = _outetts.llama_load_model_from_file(
-        nativeModelPath, nativeModelParams);
+    final modelContext =
+        _outetts.llama_load_model_from_file(nativeModelPath, nativeModelParams);
     Outetts._modelContext = modelContext;
 
     if (modelContext.address == 0) {
@@ -164,8 +164,8 @@ class Outetts extends OutettsBase {
           _outetts.llama_free(llamaContext);
         }
       }
-      final llamaContext = _outetts.llama_init_from_model(
-          modelContext, nativeContextParams);
+      final llamaContext =
+          _outetts.llama_init_from_model(modelContext, nativeContextParams);
       Outetts._llamaContext = llamaContext;
     }
 
@@ -241,8 +241,8 @@ class Outetts extends OutettsBase {
 
     Pointer<Char> formatted = calloc<Char>(nCtx);
 
-    final template = _outetts.llama_model_chat_template(
-        Outetts._modelContext, nullptr);
+    final template =
+        _outetts.llama_model_chat_template(Outetts._modelContext, nullptr);
 
     Pointer<llama_chat_message> messagesPtr = messagesCopy.toNative();
 
@@ -266,11 +266,9 @@ class Outetts extends OutettsBase {
         formatted.cast<Utf8>().toDartString().substring(_contextLength);
     // calloc.free(formatted);
 
-    final vocab =
-        _outetts.llama_model_get_vocab(Outetts._modelContext);
-    final isFirst = _outetts
-            .llama_get_kv_cache_used_cells(Outetts._llamaContext) ==
-        0;
+    final vocab = _outetts.llama_model_get_vocab(Outetts._modelContext);
+    final isFirst =
+        _outetts.llama_get_kv_cache_used_cells(Outetts._llamaContext) == 0;
 
     final promptPtr = prompt.toNativeUtf8().cast<Char>();
 
@@ -278,8 +276,8 @@ class Outetts extends OutettsBase {
         vocab, promptPtr, prompt.length, nullptr, 0, isFirst, true);
     Pointer<llama_token> promptTokens = calloc<llama_token>(nPromptTokens);
 
-    if (_outetts.llama_tokenize(vocab, promptPtr, prompt.length,
-            promptTokens, nPromptTokens, isFirst, true) <
+    if (_outetts.llama_tokenize(vocab, promptPtr, prompt.length, promptTokens,
+            nPromptTokens, isFirst, true) <
         0) {
       throw Exception('Failed to tokenize');
     }
@@ -294,8 +292,8 @@ class Outetts extends OutettsBase {
 
     while (!_completer.isCompleted) {
       final nCtx = _outetts.llama_n_ctx(Outetts._llamaContext);
-      final nCtxUsed = _outetts
-          .llama_get_kv_cache_used_cells(Outetts._llamaContext);
+      final nCtxUsed =
+          _outetts.llama_get_kv_cache_used_cells(Outetts._llamaContext);
 
       if (nCtxUsed + batch.n_tokens > nCtx) {
         throw Exception('Context size exceeded');

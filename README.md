@@ -1,6 +1,6 @@
 # Outetts
  
-**Outetts** Is library for inference any model ai LLAMA / LLM On Edge without api or internet quota, but need resources depends model you want run
+**Outetts** Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota
 
 [![](https://raw.githubusercontent.com/General-Developer/outetts/refs/heads/main/assets/demo_background.png)](https://youtu.be/drlqUwJEOg4)
 
@@ -27,8 +27,6 @@
 ## ❔️ Fun Fact
 
 - **This library 100%** use on every my create project (**App, Server, Bot, Userbot**)
-
-- **This library 100%** support all models from [llama.cpp](https://github.com/ggerganov/llama.cpp) (depending on your device specs, if high then it can be up to turbo, but if low, just choose tiny/small)
  
 ## 📈️ Proggres
  
@@ -37,7 +35,8 @@
 
 ## Resources
 
-1. [MODEL](https://huggingface.co/ggml-org/Meta-Llama-3.1-8B-Instruct-Q4_0-GGUF)
+1. [MODEL TOKENIZER](https://huggingface.co/ggml-org)
+2. [MODEL TEXT TO SPEECH](https://huggingface.co/OuteAI/)
 
 ### 📥️ Install Library
 
@@ -50,7 +49,7 @@ dart pub add outetts_dart
 2. **Flutter**
 
 ```bash
-flutter pub add outetts_flutter ggml_library_flutter
+flutter pub add outetts_flutter ggml_library_flutter llama_library_flutter
 ```
 
 ## 🚀️ Quick Start
@@ -99,9 +98,6 @@ void main(List<String> args) async {
 ```
 
 ## Reference
- 
-1. [Ggerganov-llama.cpp](https://github.com/ggerganov/llama.cpp)
-  ffi bridge main script so that this program can run
 
 
 **Copyright (c) 2024 GLOBAL CORPORATION - GENERAL DEVELOPER**

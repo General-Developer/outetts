@@ -11,8 +11,7 @@ class OutettsSharedBindingsByGeneralDeveloper {
       _lookup;
 
   /// The symbols are looked up in [dynamicLibrary].
-  OutettsSharedBindingsByGeneralDeveloper(
-      ffi.DynamicLibrary dynamicLibrary)
+  OutettsSharedBindingsByGeneralDeveloper(ffi.DynamicLibrary dynamicLibrary)
       : _lookup = dynamicLibrary.lookup;
 
   /// The symbols are looked up with [lookup].
