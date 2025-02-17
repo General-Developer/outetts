@@ -1,6 +1,12 @@
 name: 'outetts'
-description: 'Wip OuteTTS Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota'
-version: '0.0.0'
+description: 'OuteTTS Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota'
+version: '0.0.1'
+topics:
+  - 'ggml'
+  - 'artificial-intelligence'
+  - 'machine-learning'
+  - 'whisper'
+  - 'text-speech-to'
 environment:
   sdk: '>=3.6.0 <4.0.0'
 dependencies:

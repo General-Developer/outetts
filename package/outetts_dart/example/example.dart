@@ -33,14 +33,16 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 <!-- END LICENSE --> */
 
-import 'dart:io'; 
+import 'dart:io';
 import 'package:outetts_dart/outetts_dart.dart';
 
 void main(List<String> args) async {
   print("start");
 
-  final String modelVocoderPath = "../../../../../big-data/wavtokenizer/WavTokenizer-Large-75-F16.gguf";
-  final String modelPath = "../../../../../big-data/outetts/OuteTTS-0.2-500M-Q8_0.gguf";
+  final String modelVocoderPath =
+      "../../../../../big-data/wavtokenizer/WavTokenizer-Large-75-F16.gguf";
+  final String modelPath =
+      "../../../../../big-data/outetts/OuteTTS-0.2-500M-Q8_0.gguf";
 
   final String text = """
 Outetts Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota created by General Developer.

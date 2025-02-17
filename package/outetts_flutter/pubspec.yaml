@@ -1,6 +1,12 @@
 name: 'outetts_flutter'
 description: 'Wip OuteTTS Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota'
-version: '0.0.0'
+version: '0.0.1'
+topics:
+  - 'ggml'
+  - 'artificial-intelligence'
+  - 'machine-learning'
+  - 'whisper'
+  - 'text-speech-to'
 funding:
   - 'https://github.com/sponsors/azkadev'
   - 'https://github.com/sponsors/generalfoss'

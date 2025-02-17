@@ -46,6 +46,7 @@ abstract class OutettsBaseCore extends GeneralLibraryDynamicLibraryBase {
     required String modelVocoderPath,
   });
 
+  /// General Library Documentation Undocument By General Corporation & Global Corporation & General Developer
   FutureOr<String> textToSpeech({
     required int numberThreads,
     required String text,

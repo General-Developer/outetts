@@ -4,12 +4,16 @@ import 'package:ffi/ffi.dart';
 import 'package:outetts/ffi/bindings.dart';
 
 void main(List<String> args) {
-  OutettsSharedBindingsByGeneralDeveloper outettsSharedBindingsByGeneralDeveloper = OutettsSharedBindingsByGeneralDeveloper(
+  OutettsSharedBindingsByGeneralDeveloper
+      outettsSharedBindingsByGeneralDeveloper =
+      OutettsSharedBindingsByGeneralDeveloper(
     DynamicLibrary.open("liboutetts.so"),
   );
 
-  final String modelVocoderPath = "../../../../../big-data/wavtokenizer/WavTokenizer-Large-75-F16.gguf";
-  final String modelPath = "../../../../../big-data/outetts/OuteTTS-0.2-500M-Q8_0.gguf";
+  final String modelVocoderPath =
+      "../../../../../big-data/wavtokenizer/WavTokenizer-Large-75-F16.gguf";
+  final String modelPath =
+      "../../../../../big-data/outetts/OuteTTS-0.2-500M-Q8_0.gguf";
 
   final String text = """
 Outetts Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota created by General Developer
