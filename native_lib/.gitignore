@@ -27,3 +27,6 @@ build-*/
 prebuilt
 
 compile
+*.wav
+
+test

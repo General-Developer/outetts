@@ -62,3 +62,46 @@ endif()
 
 add_subdirectory(${LLAMA_LIBRARY_DIRECTORY} "llama")
 
+
+# outetts
+
+add_subdirectory("${LLAMA_LIBRARY_DIRECTORY}/common" "common")
+include_directories("${LLAMA_LIBRARY_DIRECTORY}/common")
+include_directories("${LLAMA_LIBRARY_DIRECTORY}/include")
+include_directories("${LLAMA_LIBRARY_DIRECTORY}/ggml/include")
+
+set(OUTETTS_LIBRARY_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib/outetts")
+include_directories("${OUTETTS_LIBRARY_DIRECTORY}/include")
+
+
+add_executable(outetts_executable "${OUTETTS_LIBRARY_DIRECTORY}/lib/outetts.cpp")
+
+set_target_properties(
+  outetts_executable PROPERTIES
+  OUTPUT_NAME "outetts"
+  BUILD_WITH_INSTALL_RPATH TRUE
+  INSTALL_RPATH "$ORIGIN"
+)
+
+install(TARGETS outetts_executable RUNTIME)
+target_link_libraries(outetts_executable PRIVATE llama common ${CMAKE_THREAD_LIBS_INIT})
+target_compile_features(outetts_executable PRIVATE cxx_std_17)
+
+
+add_library(outetts_shared_library SHARED
+  "${OUTETTS_LIBRARY_DIRECTORY}/lib/outetts.cpp"
+  "${OUTETTS_LIBRARY_DIRECTORY}/include/outetts.h"
+)
+
+set_target_properties(
+  outetts_shared_library PROPERTIES
+  PUBLIC_HEADER "${OUTETTS_LIBRARY_DIRECTORY}/include/outetts.h"
+  LIBRARY_OUTPUT_NAME "outetts"
+
+  BUILD_WITH_INSTALL_RPATH TRUE
+  INSTALL_RPATH "$ORIGIN"
+)
+
+install(TARGETS outetts_shared_library RUNTIME)
+target_link_libraries(outetts_shared_library PRIVATE llama common ${CMAKE_THREAD_LIBS_INIT})
+target_compile_features(outetts_shared_library PRIVATE cxx_std_17)
