@@ -57,7 +57,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 //       if (Platform.isWindows) {
 //         _lib = BabylonIo(DynamicLibrary.open('tts_outetts.dll'));
 //       } else if (Platform.isLinux || Platform.isAndroid) {
-//         _lib = BabylonIo(DynamicLibrary.open('/home/galaxeus/Documents/github/general-developer/outetts/package/outetts_flutter/linux/libtts_outetts.so'));
+//         _lib = BabylonIo(DynamicLibrary.open('../../../../../github/general-developer/outetts/package/outetts_flutter/linux/libtts_outetts.so'));
 //       } else if (Platform.isMacOS || Platform.isIOS) {
 //         _lib = BabylonIo(DynamicLibrary.open('libtts_outetts.dylib'));
 //       } else {
@@ -70,13 +70,13 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 //   Future<void> init() async {
 //     final File dpModel = await Future(() async {
 //       return File(
-//         "/home/galaxeus/Documents/github/general-developer/outetts/package/outetts/models/deep_phonemizer.onnx",
+//         "../../../../../github/general-developer/outetts/package/outetts/models/deep_phonemizer.onnx",
 //       );
 //     });
 
 //     final File vitsModel = await Future(() async {
 //       return File(
-//         "/home/galaxeus/Documents/github/general-developer/outetts/package/outetts/models/amy.onnx",
+//         "../../../../../github/general-developer/outetts/package/outetts/models/amy.onnx",
 //       );
 //     });
 
