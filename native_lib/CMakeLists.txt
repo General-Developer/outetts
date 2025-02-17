@@ -87,6 +87,8 @@ install(TARGETS outetts_executable RUNTIME)
 target_link_libraries(outetts_executable PRIVATE llama common ${CMAKE_THREAD_LIBS_INIT})
 target_compile_features(outetts_executable PRIVATE cxx_std_17)
 
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -s")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s")
 
 add_library(outetts_shared_library SHARED
   "${OUTETTS_LIBRARY_DIRECTORY}/lib/outetts.cpp"
