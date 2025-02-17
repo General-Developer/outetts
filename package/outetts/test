@@ -1,0 +1,4 @@
+#!/bin/sh
+
+dart compile exe example/test.dart
+LD_LIBRARY_PATH="../../package/outetts_flutter/linux" ./example/test.exe
