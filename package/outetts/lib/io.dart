@@ -34,10 +34,9 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 import 'dart:async';
 import 'dart:ffi';
+import 'dart:isolate';
 
 import 'package:ffi/ffi.dart';
-import 'package:general_lib/event_emitter/event_emitter.dart';
-import 'package:outetts/raw/lcpp.dart';
 
 import 'base.dart';
 import 'ffi/bindings.dart';
@@ -45,7 +44,7 @@ import 'ffi/bindings.dart';
 ///
 class Outetts extends OutettsBase {
   // ignore: prefer_final_fields
-  bool _isInIsolate = true;
+  bool _isInIsolate = false;
 
   ///
   Outetts({
@@ -57,16 +56,11 @@ class Outetts extends OutettsBase {
 
   ///
   static late final OutettsSharedBindingsByGeneralDeveloper _outetts;
-  // ignore: prefer_final_fields
-  static Pointer<llama_model> _modelContext = nullptr;
-  // ignore: prefer_final_fields
-  static Pointer<llama_context> _llamaContext = nullptr;
-  // ignore: prefer_final_fields
-  static Pointer<llama_sampler> _llamaSampler = nullptr;
 
   static bool _isEnsureInitialized = false;
 
   static String _modelPath = "";
+  static String _modelVocoderPath = "";
 
   @override
   Future<void> ensureInitialized() async {
@@ -75,7 +69,7 @@ class Outetts extends OutettsBase {
     }
 
     try {
-      _outetts = OutettsSharedBindingsByGeneralDeveloper(
+      Outetts._outetts = OutettsSharedBindingsByGeneralDeveloper(
         DynamicLibrary.open(
           sharedLibraryPath,
         ),
@@ -106,10 +100,12 @@ class Outetts extends OutettsBase {
   @override
   bool loadModel({
     required String modelPath,
+    required String modelVocoderPath,
   }) {
     if (_isInIsolate) {}
     {
       Outetts._modelPath = modelPath;
+      Outetts._modelVocoderPath = modelVocoderPath;
     }
     if (_isInIsolate == false) {
       return true;
@@ -117,76 +113,6 @@ class Outetts extends OutettsBase {
 
     if (isDeviceSupport() == false || isCrash()) {
       return false;
-    }
-    _outetts.ggml_backend_load_all();
-    _outetts.llama_backend_init();
-
-    {
-      final modelContext = Outetts._modelContext;
-      if (modelContext != nullptr) {
-        /// release memory
-        _outetts.llama_free_model(modelContext);
-      }
-    }
-    final modelParams = ModelParams(path: Outetts._modelPath);
-    final nativeModelParams = modelParams.toNative(
-      generalAiLLamaLibrary: Outetts._outetts,
-    );
-    final nativeModelPath = modelParams.path.toNativeUtf8().cast<Char>();
-
-    final modelContext =
-        _outetts.llama_load_model_from_file(nativeModelPath, nativeModelParams);
-    Outetts._modelContext = modelContext;
-
-    if (modelContext.address == 0) {
-      _outetts.llama_free_model(modelContext);
-      return false;
-    }
-
-    /// init context
-    {
-      final contextParams = const ContextParams(
-        nCtx: 2048,
-        nBatch: 2048,
-        // nCtx: 64,
-        // nBatch: 64,
-
-        nThreads: 4,
-      );
-
-      final nativeContextParams = contextParams.toNative(
-        generalAiLLamaLibrary: Outetts._outetts,
-      );
-      {
-        final llamaContext = Outetts._llamaContext;
-        if (llamaContext != nullptr) {
-          /// release memory
-          _outetts.llama_free(llamaContext);
-        }
-      }
-      final llamaContext =
-          _outetts.llama_init_from_model(modelContext, nativeContextParams);
-      Outetts._llamaContext = llamaContext;
-    }
-
-    {
-      final samplingParams = const SamplingParams(
-        greedy: true,
-      );
-
-      {
-        final llamaSampler = Outetts._llamaSampler;
-        if (llamaSampler != nullptr) {
-          _outetts.llama_sampler_free(llamaSampler);
-        }
-      }
-
-      final vocab = _outetts.llama_model_get_vocab(modelContext);
-      final llamaSampler = samplingParams.toNative(
-        vocab: vocab,
-        generalAiLLamaLibrary: Outetts._outetts,
-      );
-      Outetts._llamaSampler = llamaSampler;
     }
 
     return true;
@@ -198,147 +124,44 @@ class Outetts extends OutettsBase {
   }
 
   @override
-  FutureOr<void> close() async {
-    if (_isInIsolate == false) {
-      return;
-    }
-
-    if (_modelContext != nullptr) {
-      _outetts.llama_free_model(_modelContext);
-    }
-    if (_llamaSampler != nullptr) {
-      _outetts.llama_sampler_free(_llamaSampler);
-    }
-    if (_llamaContext != nullptr) {
-      _outetts.llama_free(_llamaContext);
-    }
-    return;
-  }
-
-  @override
-  void stop() {}
-
-  @override
-  void emit({required String eventType, required data}) {}
-
-  @override
-  EventEmitterListener on(
-      {required String eventType,
-      required FutureOr Function(dynamic data) onUpdate}) {
-    throw UnimplementedError();
-  }
-
-  Completer _completer = Completer();
-
-  int _contextLength = 0;
-  @override
-  Stream<String> prompt({required List<ChatMessage> messages}) async* {
-    final messagesCopy = messages.copy();
-
-    _completer = Completer();
-
-    final nCtx = _outetts.llama_n_ctx(Outetts._llamaContext);
-
-    Pointer<Char> formatted = calloc<Char>(nCtx);
-
-    final template =
-        _outetts.llama_model_chat_template(Outetts._modelContext, nullptr);
-
-    Pointer<llama_chat_message> messagesPtr = messagesCopy.toNative();
-
-    int newContextLength = _outetts.llama_chat_apply_template(
-        template, messagesPtr, messagesCopy.length, true, formatted, nCtx);
-
-    if (newContextLength > nCtx) {
-      // calloc.free(formatted);
-      formatted = calloc<Char>(newContextLength);
-      newContextLength = _outetts.llama_chat_apply_template(template,
-          messagesPtr, messagesCopy.length, true, formatted, newContextLength);
-    }
-
-    // messagesPtr.free(messagesCopy.length);
-
-    if (newContextLength < 0) {
-      throw Exception('Failed to apply template');
-    }
-
-    final prompt =
-        formatted.cast<Utf8>().toDartString().substring(_contextLength);
-    // calloc.free(formatted);
-
-    final vocab = _outetts.llama_model_get_vocab(Outetts._modelContext);
-    final isFirst =
-        _outetts.llama_get_kv_cache_used_cells(Outetts._llamaContext) == 0;
-
-    final promptPtr = prompt.toNativeUtf8().cast<Char>();
-
-    final nPromptTokens = -_outetts.llama_tokenize(
-        vocab, promptPtr, prompt.length, nullptr, 0, isFirst, true);
-    Pointer<llama_token> promptTokens = calloc<llama_token>(nPromptTokens);
-
-    if (_outetts.llama_tokenize(vocab, promptPtr, prompt.length, promptTokens,
-            nPromptTokens, isFirst, true) <
-        0) {
-      throw Exception('Failed to tokenize');
-    }
-
-    // calloc.free(promptPtr);
-
-    llama_batch batch =
-        _outetts.llama_batch_get_one(promptTokens, nPromptTokens);
-    Pointer<llama_token> newTokenId = calloc<llama_token>(1);
-
-    String response = '';
-
-    while (!_completer.isCompleted) {
-      final nCtx = _outetts.llama_n_ctx(Outetts._llamaContext);
-      final nCtxUsed =
-          _outetts.llama_get_kv_cache_used_cells(Outetts._llamaContext);
-
-      if (nCtxUsed + batch.n_tokens > nCtx) {
-        throw Exception('Context size exceeded');
-      }
-
-      if (_outetts.llama_decode(Outetts._llamaContext, batch) != 0) {
-        throw Exception('Failed to decode');
-      }
-
-      newTokenId.value = _outetts.llama_sampler_sample(
-          Outetts._llamaSampler, Outetts._llamaContext, -1);
-
-      // is it an end of generation?
-      if (_outetts.llama_vocab_is_eog(vocab, newTokenId.value)) {
-        break;
-      }
-
-      final buffer = calloc<Char>(256);
-      final n = _outetts.llama_token_to_piece(
-          vocab, newTokenId.value, buffer, 256, 0, true);
-      if (n < 0) {
-        throw Exception('Failed to convert token to piece');
-      }
-
-      final piece = buffer.cast<Utf8>().toDartString();
-      // calloc.free(buffer);
-      response += piece;
-      yield piece;
-
-      batch = _outetts.llama_batch_get_one(newTokenId, 1);
-    }
-
-    messagesCopy.add(ChatMessage(role: 'assistant', content: response));
-
-    messagesPtr = messagesCopy.toNative();
-
-    _contextLength = _outetts.llama_chat_apply_template(
-        template, messagesPtr, messagesCopy.length, false, nullptr, 0);
-
-    // messagesPtr.free(messagesCopy.length);
-
-    // calloc.free(promptTokens);
-    // _outetts.llama_batch_free(batch);
-  }
-
-  @override
   FutureOr<void> dispose() async {}
+
+  @override
+  FutureOr<String> textToSpeech({
+    required int numberThreads,
+    required String text,
+    required String ouputPath,
+  }) async {
+    if (_isInIsolate == false) {
+      final String modelPath = Outetts._modelPath;
+      final String modelVocoderPath = Outetts._modelVocoderPath;
+      return await Isolate.run(() async {
+        final Outetts outetts = Outetts();
+        outetts._isInIsolate = true;
+        await outetts.ensureInitialized();
+        await outetts.initialized();
+
+        outetts.loadModel(
+          modelPath: modelPath,
+          modelVocoderPath: modelVocoderPath,
+        );
+
+        return await outetts.textToSpeech(
+          numberThreads: numberThreads,
+          text: text,
+          ouputPath: ouputPath,
+        );
+      });
+    }
+
+    final options = calloc<outetts_options_t>();
+    options.ref.n_threads = numberThreads;
+    options.ref.text = text.toNativeUtf8().cast<Char>();
+    options.ref.output_path = ouputPath.toNativeUtf8().cast<Char>();
+    options.ref.model_path = Outetts._modelPath.toNativeUtf8().cast<Char>();
+    options.ref.model_vocoder_path =
+        Outetts._modelVocoderPath.toNativeUtf8().cast<Char>();
+    Outetts._outetts.outetts_inference(options.ref);
+    return ouputPath;
+  }
 }

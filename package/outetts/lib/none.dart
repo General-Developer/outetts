@@ -34,8 +34,6 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 <!-- END LICENSE --> */
 import 'dart:async';
 
-import 'package:general_lib/event_emitter/event_emitter.dart';
-
 import 'base.dart';
 
 /// Check Out: https://www.youtube.com/@GENERAL_DEV
@@ -43,67 +41,45 @@ class Outetts extends OutettsBase {
   /// General Library Documentation Undocument By General Corporation & Global Corporation & General Developer
   Outetts({super.sharedLibraryPath});
 
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
   @override
-  void close() {}
+  FutureOr<void> dispose() {
+    throw UnimplementedError();
+  }
 
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
-  final bool _isCrash = false;
+  @override
+  FutureOr<void> ensureInitialized() {
+    throw UnimplementedError();
+  }
 
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
-  final bool _isDeviceSupport = false;
+  @override
+  FutureOr<void> initialized() {
+    throw UnimplementedError();
+  }
 
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
   @override
   bool isCrash() {
-    return _isCrash;
+    throw UnimplementedError();
   }
 
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
   @override
   bool isDeviceSupport() {
-    if (_isCrash) {
-      return false;
-    }
-    return _isDeviceSupport;
-  }
-
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
-  @override
-  FutureOr<void> dispose() async {
-    return;
-  }
-
-  @override
-  void emit({required String eventType, required data}) {}
-
-  @override
-  Future<void> ensureInitialized() {
     throw UnimplementedError();
   }
 
   @override
-  Future<void> initialized() {
+  bool loadModel({
+    required String modelPath,
+    required String modelVocoderPath,
+  }) {
     throw UnimplementedError();
   }
 
   @override
-  bool loadModel({required String modelPath}) {
+  FutureOr<String> textToSpeech(
+      {required int numberThreads,
+      required String text,
+      required String ouputPath}) {
+    // TODO: implement textToSpeech
     throw UnimplementedError();
   }
-
-  @override
-  EventEmitterListener on(
-      {required String eventType,
-      required FutureOr Function(dynamic data) onUpdate}) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Stream<String> prompt({required List<dynamic> messages}) {
-    throw UnimplementedError();
-  }
-
-  @override
-  void stop() {}
 }

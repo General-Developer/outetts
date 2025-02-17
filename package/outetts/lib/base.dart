@@ -32,46 +32,24 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 
 <!-- END LICENSE --> */
+
 import 'dart:async';
 
 import 'package:general_lib/dynamic_library/core.dart';
-import 'package:general_lib/general_lib.dart' show EventEmitterListener;
-import 'package:outetts/raw/lcpp.dart' show ChatMessage;
 
 /// Check Out: https://www.youtube.com/@GENERAL_DEV
 abstract class OutettsBaseCore extends GeneralLibraryDynamicLibraryBase {
   /// Check Out: https://www.youtube.com/@GENERAL_DEV
 
-  Future<void> initialized();
-
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
-
   bool loadModel({
     required String modelPath,
+    required String modelVocoderPath,
   });
 
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
-
-  void stop();
-
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
-
-  Stream<String> prompt({
-    required List<ChatMessage> messages,
-  });
-
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
-
-  void emit({
-    required String eventType,
-    required dynamic data,
-  });
-
-  /// Check Out: https://www.youtube.com/@GENERAL_DEV
-
-  EventEmitterListener on({
-    required String eventType,
-    required FutureOr<dynamic> Function(dynamic data) onUpdate,
+  FutureOr<String> textToSpeech({
+    required int numberThreads,
+    required String text,
+    required String ouputPath,
   });
 }
 
@@ -87,6 +65,6 @@ abstract class OutettsBase implements OutettsBaseCore {
 
   ///
   static String getLibraryWhisperPathDefault() {
-    return "libllama.so";
+    return "liboutetts.so";
   }
 }
