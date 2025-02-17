@@ -4,7 +4,7 @@ version: '0.0.0'
 environment:
   sdk: '>=3.6.0 <4.0.0'
 dependencies:
-  general_lib: '^0.0.65'
+  general_lib: '^0.0.66'
   ffi: '^2.1.0'
   crypto: '^3.0.3'
   path: '^1.9.0'
@@ -33,10 +33,8 @@ ffigen:
   headers:
     entry-points:
       - '../../native_lib/lib/outetts/include/outetts.h'
-      
   compiler-opts:
     - '-I/usr/lib/clang/19.1.7/include'
-
 platforms:
   android: null
   ios: null
