@@ -8,11 +8,11 @@ topics:
   - 'whisper'
   - 'text-to-speech'
 environment:
-  sdk: '>=3.6.0 <4.0.0'
+  sdk: '>=3.7.0 <4.0.0'
 dependencies:
   outetts: '^0.0.4'
 dev_dependencies:
-  lints: '^5.0.0'
+  lints: '^5.1.1'
   test: 'any'
 project:
   type: ''
