@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Outetts App
+GenericName=Outetts App
+Version=1.0.0+1
+Exec=/opt/outetts-app/outetts_app
+Icon=/opt/outetts-app/data/flutter_assets/assets/icon.png
+Terminal=false
+Type=Application
+Categories=Music;Media;
+Keywords=Hello;World;Test;Application;
+StartupNotify=true
