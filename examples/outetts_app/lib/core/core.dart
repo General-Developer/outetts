@@ -40,7 +40,7 @@ import 'dart:io';
 
 import 'package:outetts/outetts.dart';
 import 'package:outetts_app/scheme/scheme/application_outetts_database.dart';
- import 'package:file_picker/file_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:general_framework/flutter/client/general_framework_client_flutter_app_directory.dart';
 import 'package:general_lib/crypto/crypto.dart';
@@ -48,13 +48,16 @@ import 'package:general_lib/dart/dart.dart';
 import 'package:general_lib/database/database.dart';
 import 'package:general_lib/database/database_core.dart';
 import 'package:general_lib_flutter/general_lib_flutter.dart';
-import 'package:general_system_device/general_system_device_flutter.dart'; 
+import 'package:general_system_device/general_system_device_flutter.dart';
 import "package:path/path.dart" as path;
 
 class OutettsAppClientFlutter {
   static GeneralLibFlutterApp generalLibFlutterApp = GeneralLibFlutterApp();
-  static final GeneralSystemDeviceFlutter generalFlutter = GeneralSystemDeviceFlutter();
-  static final GeneralFrameworkClientFlutterAppDirectory generalFrameworkClientFlutterAppDirectory = GeneralFrameworkClientFlutterAppDirectory();
+  static final GeneralSystemDeviceFlutter generalFlutter =
+      GeneralSystemDeviceFlutter();
+  static final GeneralFrameworkClientFlutterAppDirectory
+      generalFrameworkClientFlutterAppDirectory =
+      GeneralFrameworkClientFlutterAppDirectory();
   static final Outetts outetts = Outetts();
 
   static final DatabaseGeneralLib databaseGeneralLib = DatabaseGeneralLib();
@@ -68,12 +71,14 @@ class OutettsAppClientFlutter {
   }
 
   static final Crypto _crypto = Crypto(
-    key: utf8.decode(base64.decode("MjBIUEg4MzVrWjlBcnN0MjNhVHc0MlQyWU84ZVdPYkU=")),
+    key: utf8
+        .decode(base64.decode("MjBIUEg4MzVrWjlBcnN0MjNhVHc0MlQyWU84ZVdPYkU=")),
     iv: utf8.decode(base64.decode("R29pNklmWGRNeHVHSmFpenYwTlg3UT09")),
   );
 
   /// General Library Documentation Undocument By General Corporation & Global Corporation & General Developer
-  static DatabaseMiniGeneralLibraryBaseOptions get databaseMiniGeneralLibraryBaseOptions {
+  static DatabaseMiniGeneralLibraryBaseOptions
+      get databaseMiniGeneralLibraryBaseOptions {
     return DatabaseMiniGeneralLibraryBaseOptions(
       crypto: _crypto,
       isUseCrypto: true,
@@ -92,8 +97,12 @@ class OutettsAppClientFlutter {
 
     {
       coreDatabaseMiniLibrary = await databaseGeneralLib.openDatabaseMiniAsync(
-        key: path.join(generalFrameworkClientFlutterAppDirectory.app_support_directory.path, "core_database"),
-        databaseMiniGeneralLibraryBaseOptions: databaseMiniGeneralLibraryBaseOptions,
+        key: path.join(
+            generalFrameworkClientFlutterAppDirectory
+                .app_support_directory.path,
+            "core_database"),
+        databaseMiniGeneralLibraryBaseOptions:
+            databaseMiniGeneralLibraryBaseOptions,
         defaultData: {},
       );
     }

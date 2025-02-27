@@ -2,21 +2,24 @@
 import "package:general_lib/general_lib.dart";
 // import "dart:convert";
 
-
-/// Generated 
+/// Generated
 class ApplicationOutettsDatabase extends JsonScheme {
-
   /// Generated
   ApplicationOutettsDatabase(super.rawData);
-  
+
   /// return default data
-  /// 
+  ///
   static Map get defaultData {
-    return {"@type":"applicationOutettsDatabase","outetts_model_path":"","outetts_model_vocoder_path":"","file_audio_path":""};
+    return {
+      "@type": "applicationOutettsDatabase",
+      "outetts_model_path": "",
+      "outetts_model_vocoder_path": "",
+      "file_audio_path": ""
+    };
   }
 
-  /// check data 
-  /// if raw data 
+  /// check data
+  /// if raw data
   /// - rawData["@type"] == applicationOutettsDatabase
   /// if same return true
   bool json_scheme_utils_checkDataIsSameBySpecialType() {
@@ -30,20 +33,16 @@ class ApplicationOutettsDatabase extends JsonScheme {
     return onResult(rawData["@type"], defaultData["@type"]);
   }
 
-  
-
   /// create [ApplicationOutettsDatabase]
-  /// Empty  
+  /// Empty
   static ApplicationOutettsDatabase empty() {
     return ApplicationOutettsDatabase({});
   }
 
-  
-
   /// Generated
   String? get special_type {
     try {
-      if (rawData["@type"] is String == false){
+      if (rawData["@type"] is String == false) {
         return null;
       }
       return rawData["@type"] as String;
@@ -57,11 +56,10 @@ class ApplicationOutettsDatabase extends JsonScheme {
     rawData["@type"] = value;
   }
 
-
   /// Generated
   String? get outetts_model_path {
     try {
-      if (rawData["outetts_model_path"] is String == false){
+      if (rawData["outetts_model_path"] is String == false) {
         return null;
       }
       return rawData["outetts_model_path"] as String;
@@ -75,11 +73,10 @@ class ApplicationOutettsDatabase extends JsonScheme {
     rawData["outetts_model_path"] = value;
   }
 
-
   /// Generated
   String? get outetts_model_vocoder_path {
     try {
-      if (rawData["outetts_model_vocoder_path"] is String == false){
+      if (rawData["outetts_model_vocoder_path"] is String == false) {
         return null;
       }
       return rawData["outetts_model_vocoder_path"] as String;
@@ -93,11 +90,10 @@ class ApplicationOutettsDatabase extends JsonScheme {
     rawData["outetts_model_vocoder_path"] = value;
   }
 
-
   /// Generated
   String? get file_audio_path {
     try {
-      if (rawData["file_audio_path"] is String == false){
+      if (rawData["file_audio_path"] is String == false) {
         return null;
       }
       return rawData["file_audio_path"] as String;
@@ -111,39 +107,34 @@ class ApplicationOutettsDatabase extends JsonScheme {
     rawData["file_audio_path"] = value;
   }
 
-
   /// Generated
   static ApplicationOutettsDatabase create({
-              bool schemeUtilsIsSetDefaultData = false,
-
+    bool schemeUtilsIsSetDefaultData = false,
     String special_type = "applicationOutettsDatabase",
     String? outetts_model_path,
     String? outetts_model_vocoder_path,
     String? file_audio_path,
-})  {
+  }) {
     // ApplicationOutettsDatabase applicationOutettsDatabase = ApplicationOutettsDatabase({
-final Map applicationOutettsDatabase_data_create_json = {
-  
+    final Map applicationOutettsDatabase_data_create_json = {
       "@type": special_type,
       "outetts_model_path": outetts_model_path,
       "outetts_model_vocoder_path": outetts_model_vocoder_path,
       "file_audio_path": file_audio_path,
+    };
 
-
-};
-
-
-          applicationOutettsDatabase_data_create_json.removeWhere((key, value) => value == null);
+    applicationOutettsDatabase_data_create_json
+        .removeWhere((key, value) => value == null);
 
     if (schemeUtilsIsSetDefaultData) {
       defaultData.forEach((key, value) {
-        if (applicationOutettsDatabase_data_create_json.containsKey(key) == false) {
+        if (applicationOutettsDatabase_data_create_json.containsKey(key) ==
+            false) {
           applicationOutettsDatabase_data_create_json[key] = value;
         }
       });
     }
-return ApplicationOutettsDatabase(applicationOutettsDatabase_data_create_json);
-
-
-      }
+    return ApplicationOutettsDatabase(
+        applicationOutettsDatabase_data_create_json);
+  }
 }

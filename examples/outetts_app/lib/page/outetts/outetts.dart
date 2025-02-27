@@ -55,10 +55,13 @@ class OutettsTextToSpeechPage extends StatefulWidget {
   State<OutettsTextToSpeechPage> createState() => _SpeechToTextPageState();
 }
 
-class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with GeneralLibFlutterStatefulWidget {
+class _SpeechToTextPageState extends State<OutettsTextToSpeechPage>
+    with GeneralLibFlutterStatefulWidget {
   late final GeneralSystemDeviceLibraryPlayerControllerBase playerController;
 
-  final TextEditingController textEditingController = TextEditingController(text: "Hello World This Outetts Text To Speech Created By General Developer");
+  final TextEditingController textEditingController = TextEditingController(
+      text:
+          "Hello World This Outetts Text To Speech Created By General Developer");
   @override
   void initState() {
     //  initState
@@ -83,7 +86,8 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
   void ensureInitialized() {
     //  ensureInitialized
     super.ensureInitialized();
-    playerController = OutettsAppClientFlutter.generalFlutter.media_player.createPlayer(player_id: "player");
+    playerController = OutettsAppClientFlutter.generalFlutter.media_player
+        .createPlayer(player_id: "player");
   }
 
   Future<void> initialized() async {
@@ -91,11 +95,13 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
       isLoading = true;
     });
     await Future(() async {
-      final ApplicationOutettsDatabase applicationOutettsDatabase = getApplicationOutettsDatabase();
+      final ApplicationOutettsDatabase applicationOutettsDatabase =
+          getApplicationOutettsDatabase();
 
       loadModel(
         outettsModel: File(applicationOutettsDatabase.outetts_model_path ?? ""),
-        outettsModelVocoder: File(applicationOutettsDatabase.outetts_model_vocoder_path ?? ""),
+        outettsModelVocoder:
+            File(applicationOutettsDatabase.outetts_model_vocoder_path ?? ""),
       );
     });
     setState(() {
@@ -107,7 +113,8 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
     required File outettsModel,
     required File outettsModelVocoder,
   }) {
-    if (outettsModel.existsSync() == false || outettsModelVocoder.existsSync() == false) {
+    if (outettsModel.existsSync() == false ||
+        outettsModelVocoder.existsSync() == false) {
       return false;
     }
     final bool isLoadedModel = OutettsAppClientFlutter.outetts.loadModel(
@@ -164,7 +171,10 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
   }
 
   final File fileAudioSaved = () {
-    return File(path.join(OutettsAppClientFlutter.generalFrameworkClientFlutterAppDirectory.app_support_directory.path, "audio.wav"));
+    return File(path.join(
+        OutettsAppClientFlutter.generalFrameworkClientFlutterAppDirectory
+            .app_support_directory.path,
+        "audio.wav"));
   }();
 
   @override
@@ -181,7 +191,8 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
         onRefresh: refresh,
         child: SingleChildScrollView(
           child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: context.height, minWidth: context.width),
+            constraints: BoxConstraints(
+                minHeight: context.height, minWidth: context.width),
             child: Column(
               children: [
                 MenuContainerResponsiveGeneralFrameworkWidget(
@@ -204,7 +215,10 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
                         contentPadding: EdgeInsets.all(5),
                         title: "Support",
                         trailing: Icon(
-                          (OutettsAppClientFlutter.outetts.isDeviceSupport() == true) ? Icons.verified : Icons.close,
+                          (OutettsAppClientFlutter.outetts.isDeviceSupport() ==
+                                  true)
+                              ? Icons.verified
+                              : Icons.close,
                         ),
                       ),
                       MenuContainerGeneralFrameworkWidget.lisTile(
@@ -221,14 +235,18 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
                           onPressed: () {
                             handleFunction(
                               onFunction: (context, statefulWidget) async {
-                                final file = await OutettsAppClientFlutter.pickFile(
+                                final file =
+                                    await OutettsAppClientFlutter.pickFile(
                                   dialogTitle: "Outetts Model Vocoder",
                                 );
                                 if (file == null) {
                                   context.showAlertGeneralFramework(
-                                    alertGeneralFrameworkOptions: AlertGeneralFrameworkOptions(
-                                      title: "Failed Load Model Vocoder Outetts",
-                                      builder: (context, alertGeneralFrameworkOptions) {
+                                    alertGeneralFrameworkOptions:
+                                        AlertGeneralFrameworkOptions(
+                                      title:
+                                          "Failed Load Model Vocoder Outetts",
+                                      builder: (context,
+                                          alertGeneralFrameworkOptions) {
                                         return "Coba lagi";
                                       },
                                     ),
@@ -238,8 +256,11 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
 
                                 /// save to application settings
                                 {
-                                  final ApplicationOutettsDatabase applicationOutettsDatabase = getApplicationOutettsDatabase();
-                                  applicationOutettsDatabase.outetts_model_vocoder_path = file.path;
+                                  final ApplicationOutettsDatabase
+                                      applicationOutettsDatabase =
+                                      getApplicationOutettsDatabase();
+                                  applicationOutettsDatabase
+                                      .outetts_model_vocoder_path = file.path;
                                   saveApplicationOutettsDatabase();
                                 }
 
@@ -264,14 +285,17 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
                           onPressed: () {
                             handleFunction(
                               onFunction: (context, statefulWidget) async {
-                                final file = await OutettsAppClientFlutter.pickFile(
+                                final file =
+                                    await OutettsAppClientFlutter.pickFile(
                                   dialogTitle: "Outetts Model",
                                 );
                                 if (file == null) {
                                   context.showAlertGeneralFramework(
-                                    alertGeneralFrameworkOptions: AlertGeneralFrameworkOptions(
+                                    alertGeneralFrameworkOptions:
+                                        AlertGeneralFrameworkOptions(
                                       title: "Failed Load Model Outetts",
-                                      builder: (context, alertGeneralFrameworkOptions) {
+                                      builder: (context,
+                                          alertGeneralFrameworkOptions) {
                                         return "Coba lagi";
                                       },
                                     ),
@@ -281,8 +305,11 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
 
                                 /// save to application settings
                                 {
-                                  final ApplicationOutettsDatabase applicationOutettsDatabase = getApplicationOutettsDatabase();
-                                  applicationOutettsDatabase.outetts_model_path = file.path;
+                                  final ApplicationOutettsDatabase
+                                      applicationOutettsDatabase =
+                                      getApplicationOutettsDatabase();
+                                  applicationOutettsDatabase
+                                      .outetts_model_path = file.path;
                                   saveApplicationOutettsDatabase();
                                 }
                                 updateModel(outettsModel: file);
@@ -299,13 +326,22 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
                         onTap: () {
                           handleFunction(
                             onFunction: (context, statefulWidget) async {
-                              final ApplicationOutettsDatabase applicationOutettsDatabase = getApplicationOutettsDatabase();
+                              final ApplicationOutettsDatabase
+                                  applicationOutettsDatabase =
+                                  getApplicationOutettsDatabase();
 
                               final bool isLoadOutettsModel = loadModel(
-                                outettsModel: File(applicationOutettsDatabase.outetts_model_path ?? ""),
-                                outettsModelVocoder: File(applicationOutettsDatabase.outetts_model_vocoder_path ?? ""),
+                                outettsModel: File(applicationOutettsDatabase
+                                        .outetts_model_path ??
+                                    ""),
+                                outettsModelVocoder: File(
+                                    applicationOutettsDatabase
+                                            .outetts_model_vocoder_path ??
+                                        ""),
                               );
-                              context.showSnackBar(isLoadOutettsModel ? "Succes Load Model Outetts" : "Failed Load Model Outetts");
+                              context.showSnackBar(isLoadOutettsModel
+                                  ? "Succes Load Model Outetts"
+                                  : "Failed Load Model Outetts");
                             },
                           );
                         },
@@ -321,11 +357,9 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
                         minLines: 1,
                         prefixIconData: Icons.text_fields,
                         controller: textEditingController,
-                        
                         inputDecorationBuilder: (context, inputDecoration) {
                           return inputDecoration.copyWith(
                             contentPadding: EdgeInsets.all(5),
-                            
                           );
                         },
                         onChanged: (value) {},
@@ -335,28 +369,40 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
                       onPressed: () {
                         handleFunction(
                           onFunction: (context, statefulWidget) async {
-                            final String text = textEditingController.text.trim();
+                            final String text =
+                                textEditingController.text.trim();
                             if (text.isEmpty) {
                               context.showAlertGeneralFramework(
-                                alertGeneralFrameworkOptions: AlertGeneralFrameworkOptions(
+                                alertGeneralFrameworkOptions:
+                                    AlertGeneralFrameworkOptions(
                                   title: "Please Fill Form First",
-                                  builder: (context, alertGeneralFrameworkOptions) {
+                                  builder:
+                                      (context, alertGeneralFrameworkOptions) {
                                     return "Require Fill Text Form";
                                   },
                                 ),
                               );
                             }
-                            LoadingGeneralFrameworkController loadingGeneralFrameworkController = LoadingGeneralFrameworkController(loadingText: "Generate Speech");
+                            LoadingGeneralFrameworkController
+                                loadingGeneralFrameworkController =
+                                LoadingGeneralFrameworkController(
+                                    loadingText: "Generate Speech");
 
-                            LoadingGeneralFramework.show(context: context, loadingGeneralFrameworkController: loadingGeneralFrameworkController);
+                            LoadingGeneralFramework.show(
+                                context: context,
+                                loadingGeneralFrameworkController:
+                                    loadingGeneralFrameworkController);
                             await Future(() async {
                               try {
-                                await OutettsAppClientFlutter.outetts.textToSpeech(
+                                await OutettsAppClientFlutter.outetts
+                                    .textToSpeech(
                                   numberThreads: 1,
                                   text: text,
                                   ouputPath: fileAudioSaved.path,
                                 );
-                                await playerController.open(GeneralSystemDeviceLibraryPlayerMediaBase(fileAudioSaved.path));
+                                await playerController.open(
+                                    GeneralSystemDeviceLibraryPlayerMediaBase(
+                                        fileAudioSaved.path));
                               } catch (e) {}
                             });
                             context.navigator().pop();
