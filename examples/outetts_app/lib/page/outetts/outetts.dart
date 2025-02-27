@@ -37,6 +37,7 @@ Bukan maksud kami menipu itu karena harga yang sudah di kalkulasi + bantuan tiba
 
 import 'dart:io';
 
+import 'package:general_framework/flutter/loading/loading.dart';
 import 'package:outetts_app/core/core.dart';
 import 'package:outetts_app/scheme/scheme/application_outetts_database.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,7 @@ class OutettsTextToSpeechPage extends StatefulWidget {
 class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with GeneralLibFlutterStatefulWidget {
   late final GeneralSystemDeviceLibraryPlayerControllerBase playerController;
 
+  final TextEditingController textEditingController = TextEditingController(text: "Hello World This Outetts Text To Speech Created By General Developer");
   @override
   void initState() {
     //  initState
@@ -294,25 +296,76 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
                         context: context,
                         contentPadding: EdgeInsets.all(5),
                         title: "Reload Model",
-                        trailing: IconButton(
-                          onPressed: () {
-                            handleFunction(
-                              onFunction: (context, statefulWidget) async {
-                                final ApplicationOutettsDatabase applicationOutettsDatabase = getApplicationOutettsDatabase();
+                        onTap: () {
+                          handleFunction(
+                            onFunction: (context, statefulWidget) async {
+                              final ApplicationOutettsDatabase applicationOutettsDatabase = getApplicationOutettsDatabase();
 
-                                final bool isLoadOutettsModel = loadModel(
-                                  outettsModel: File(applicationOutettsDatabase.outetts_model_path ?? ""),
-                                  outettsModelVocoder: File(applicationOutettsDatabase.outetts_model_vocoder_path ?? ""),
-                                );
-                                context.showSnackBar(isLoadOutettsModel ? "Succes Load Model Outetts" : "Failed Load Model Outetts");
-                              },
-                            );
-                          },
-                          icon: Icon(Icons.create),
-                        ),
+                              final bool isLoadOutettsModel = loadModel(
+                                outettsModel: File(applicationOutettsDatabase.outetts_model_path ?? ""),
+                                outettsModelVocoder: File(applicationOutettsDatabase.outetts_model_vocoder_path ?? ""),
+                              );
+                              context.showSnackBar(isLoadOutettsModel ? "Succes Load Model Outetts" : "Failed Load Model Outetts");
+                            },
+                          );
+                        },
                       ),
                     ];
                   },
+                ),
+                Row(
+                  children: [
+                    Flexible(
+                      child: TextFormFieldGeneralFrameworkWidget(
+                        maxLines: 9,
+                        minLines: 1,
+                        prefixIconData: Icons.text_fields,
+                        controller: textEditingController,
+                        
+                        inputDecorationBuilder: (context, inputDecoration) {
+                          return inputDecoration.copyWith(
+                            contentPadding: EdgeInsets.all(5),
+                            
+                          );
+                        },
+                        onChanged: (value) {},
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        handleFunction(
+                          onFunction: (context, statefulWidget) async {
+                            final String text = textEditingController.text.trim();
+                            if (text.isEmpty) {
+                              context.showAlertGeneralFramework(
+                                alertGeneralFrameworkOptions: AlertGeneralFrameworkOptions(
+                                  title: "Please Fill Form First",
+                                  builder: (context, alertGeneralFrameworkOptions) {
+                                    return "Require Fill Text Form";
+                                  },
+                                ),
+                              );
+                            }
+                            LoadingGeneralFrameworkController loadingGeneralFrameworkController = LoadingGeneralFrameworkController(loadingText: "Generate Speech");
+
+                            LoadingGeneralFramework.show(context: context, loadingGeneralFrameworkController: loadingGeneralFrameworkController);
+                            await Future(() async {
+                              try {
+                                await OutettsAppClientFlutter.outetts.textToSpeech(
+                                  numberThreads: 1,
+                                  text: text,
+                                  ouputPath: fileAudioSaved.path,
+                                );
+                                await playerController.open(GeneralSystemDeviceLibraryPlayerMediaBase(fileAudioSaved.path));
+                              } catch (e) {}
+                            });
+                            context.navigator().pop();
+                          },
+                        );
+                      },
+                      icon: Icon(Icons.speaker),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: context.mediaQueryData.padding.bottom,
@@ -321,20 +374,6 @@ class _SpeechToTextPageState extends State<OutettsTextToSpeechPage> with General
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          handleFunction(
-            onFunction: (context, statefulWidget) async {
-              await OutettsAppClientFlutter.outetts.textToSpeech(
-                numberThreads: 4,
-                text: "Hello World Text To Speech From Azkadev",
-                ouputPath: fileAudioSaved.path,
-              );
-              await playerController.open(GeneralSystemDeviceLibraryPlayerMediaBase(fileAudioSaved.path));
-            },
-          );
-        },
       ),
     );
   }

@@ -44,7 +44,7 @@ import 'package:general_lib/extension/extension.dart';
 import 'package:general_lib_flutter/general_lib_flutter.dart';
 
 void main() async {
-await  OutettsAppClientFlutter.ensureInitialized();
+  await OutettsAppClientFlutter.ensureInitialized();
   runApp(const MyApp());
 }
 
