@@ -1,6 +1,6 @@
 name: 'outetts_dart'
 description: 'OuteTTS Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota'
-version: '0.0.4'
+version: '0.0.5'
 topics:
   - 'ggml'
   - 'artificial-intelligence'
@@ -10,7 +10,7 @@ topics:
 environment:
   sdk: '>=3.6.0 <4.0.0'
 dependencies:
-  outetts: '^0.0.4'
+  outetts: '^0.0.5'
 dev_dependencies:
   lints: '^5.0.0'
   test: 'any'

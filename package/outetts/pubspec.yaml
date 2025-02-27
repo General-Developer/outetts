@@ -1,6 +1,6 @@
 name: 'outetts'
 description: 'OuteTTS Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota'
-version: '0.0.4'
+version: '0.0.5'
 topics:
   - 'ggml'
   - 'artificial-intelligence'
