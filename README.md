@@ -97,3 +97,14 @@ Outetts Is Library for generate neural Text To Speech on Edge Device Without api
 
 **Copyright (c) 2024 GLOBAL CORPORATION - GENERAL DEVELOPER**
 
+
+
+## Example Project Use This Library
+
+
+- [Outetts Application](https://github.com/General-Developer/outetts/tree/main/examples/outetts_app)
+    
+Minimal simple application example of using outetts [Youtube Video](https://youtu.be/U-5EDMk0UgE) 
+| Mobile                                                                                                                                  | Desktop |
+|-----------------------------------------------------------------------------------------------------------------------------------------|---------|
+| [![](https://raw.githubusercontent.com/General-Developer/outetts/refs/heads/main/assets/examples/outetts_app/mobile.png)](https://youtu.be/U-5EDMk0UgE) | [![](https://raw.githubusercontent.com/General-Developer/outetts/refs/heads/main/assets/examples/outetts_app/desktop.png)](https://youtu.be/U-5EDMk0UgE)        |
