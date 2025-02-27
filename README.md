@@ -2,7 +2,7 @@
  
 **Outetts** Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota
 
-[![](https://raw.githubusercontent.com/General-Developer/outetts/refs/heads/main/assets/demo_background.png)](https://youtu.be/drlqUwJEOg4)
+<!-- [![](https://raw.githubusercontent.com/General-Developer/outetts/refs/heads/main/assets/demo_background.png)](https://youtu.be/drlqUwJEOg4) -->
 
 https://github.com/user-attachments/assets/5f0e9085-b0ff-49d6-bdac-69c8c2edc6d9
 

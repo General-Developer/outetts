@@ -465,7 +465,7 @@ extern "C" {
     //             std::cerr << e.what() << std::endl;
     //             return 1;
     //         }
- 
+
 
     OUTETTS_EXPORT int outetts_inference(outetts_options_t options) {
 
@@ -484,7 +484,7 @@ extern "C" {
         params.cpuparams.n_threads = options.n_threads;
         if (params.cpuparams.n_threads <= 0) {
             params.cpuparams.n_threads = std::thread::hardware_concurrency();
-        } 
+        }
 
         params.n_predict = 4096;
         params.n_batch = 8192;
@@ -803,8 +803,23 @@ extern "C" {
             audio[i] = 0.0f;
         }
         save_wav16(fname, audio, n_sr);
-        llama_backend_free();
 
+        // std::vector<llama_token> codes;
+        // std::vector<llama_token> guide_tokens;
+
+        // if (ctx_ttc != NULL) {
+        //     llama_free(ctx_ttc);
+        // }
+        // if (ctx_cts != NULL) {
+        //     llama_free(ctx_cts);
+        // }
+        // if (model_cts != NULL) {
+        //     llama_free_model(model_cts);
+        // }
+        // if (model_ttc != NULL) {
+        //     llama_free_model(model_ttc);
+        // }
+        llama_backend_free(); 
         return 0;
     }
 
