@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+ln --force -s /opt/outetts-app/outetts_app /usr/bin/outetts-app-app
+chmod +x /usr/bin/outetts-app-app
+
+exit 0

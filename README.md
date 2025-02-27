@@ -45,7 +45,7 @@ https://github.com/user-attachments/assets/5f0e9085-b0ff-49d6-bdac-69c8c2edc6d9
 1. **Dart**
 
 ```bash
-dart pub add outetts_dart
+dart pub add outetts
 ```
 
 2. **Flutter**
@@ -84,7 +84,7 @@ Outetts Is Library for generate neural Text To Speech on Edge Device Without api
     modelVocoderPath: modelVocoderPath,
   );
   await outetts.textToSpeech(
-    numberThreads: 4,
+    numberThreads: 1,
     text: text,
     ouputPath: outputPath,
   );
@@ -97,14 +97,3 @@ Outetts Is Library for generate neural Text To Speech on Edge Device Without api
 
 **Copyright (c) 2024 GLOBAL CORPORATION - GENERAL DEVELOPER**
 
-
-## Example Project Use This Library
-
-
-1. [AZKA GRAM](https://github.com/azkadev/azkagram) / [Global GRAM](https://github.com/globalcorporation/global_gram_app)
-    
- **Telegram Application** with **redesign** with new some features userbot and other **features which is not officially provided on Telegram** First this project open source but we closed it to **close source** because our program is easy to read and allows other people to edit the source code and then use it for criminal acts
- 
-|                                                 CHAT PAGE                                                  |                                                SIGN UP PAGE                                                |                                                                                                  HOME PAGE |                                          GUIDE PAGE                                           |
-|:----------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|-----------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|
-| ![](https://user-images.githubusercontent.com/82513502/205481759-b6815e2f-bd5d-4d72-9570-becd3829dd36.png) | ![](https://user-images.githubusercontent.com/82513502/173319331-9e96fbe7-3e66-44b2-8577-f6685d86a368.png) | ![](https://user-images.githubusercontent.com/82513502/173319541-19a60407-f410-4e95-8ac0-d0da2eaf2457.png) | ![](https://raw.githubusercontent.com/GLXCORP/glx_bot_app/main/screenshots/home_telegram.png) |
