@@ -1,5 +1,5 @@
 name: 'outetts_project'
-description: 'Wip OuteTTS Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota'
+description: 'OuteTTS Is Library for generate neural Text To Speech on Edge Device Without api key or internet quota'
 version: '0.0.0'
 repository: 'https://github.com/General-Developer/outetts'
 homepage: 'https://www.youtube.com/@general_dev'
